@@ -1,4 +1,4 @@
-package fapi
+package apisvr
 
 import (
 	"errors"
@@ -34,9 +34,7 @@ func ErrorHandler() gin.HandlerFunc {
 			}
 		}
 
-		c.JSON(lastErr.Status, Response{
-			Error: lastErr,
-		})
+		c.JSON(lastErr.Status, gin.H{"error": lastErr})
 	}
 }
 

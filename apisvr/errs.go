@@ -1,4 +1,4 @@
-package fapi
+package apisvr
 
 import "net/http"
 
