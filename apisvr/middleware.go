@@ -2,7 +2,6 @@ package apisvr
 
 import (
 	"errors"
-	"log"
 
 	"github.com/gin-gonic/gin"
 )
@@ -36,13 +35,4 @@ func ErrorHandler() gin.HandlerFunc {
 
 		c.JSON(lastErr.Status, gin.H{"error": lastErr})
 	}
-}
-
-func LogError(err *ResponseError) {
-	if err.Name != "ServerError" {
-		return // Don't log non-server errors
-	}
-
-	// .Message is not shown to public, log internally
-	log.Printf("[SERVER_ERROR]: %s\n", err.PrivateMessage)
 }
