@@ -17,6 +17,7 @@ type Client struct {
 type APIResponse struct {
 	StatusCode int
 	Data       []byte
+	APIError   *APIError
 }
 
 func (r *APIResponse) IsSuccess() bool {
@@ -139,7 +140,8 @@ func (c *Client) Fetch(opts FetchOpts) (*APIResponse, error) {
 		if err := json.Unmarshal(data, &apiErr); err != nil {
 			return nil, err
 		}
-		apiRes.StatusCode = apiErr.StatusCode
+
+		apiRes.APIError = &apiErr
 	}
 	return &apiRes, nil
 }
