@@ -25,11 +25,10 @@ func (r *APIResponse) IsSuccess() bool {
 }
 
 type APIError struct {
-	StatusCode int
-	Name       string `json:"name"`
-	Code       string `json:"code"`
-	Message    string `json:"message,omitempty"`
-	Data       any    `json:"data,omitempty"`
+	Name    string `json:"name"`
+	Code    string `json:"code"`
+	Message string `json:"message,omitempty"`
+	Data    any    `json:"data,omitempty"`
 }
 
 func (e *APIError) Error() string {
