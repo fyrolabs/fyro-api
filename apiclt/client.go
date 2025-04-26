@@ -135,13 +135,16 @@ func (c *Client) Fetch(opts FetchOpts) (*APIResponse, error) {
 
 	if !apiRes.IsSuccess() {
 		// Try to unmarshal the error data
-		var apiErr APIError
-		if err := json.Unmarshal(data, &apiErr); err != nil {
+		type errResp struct {
+			Error APIError `json:"error"`
+		}
+
+		var errData errResp
+		if err := json.Unmarshal(data, &errData); err != nil {
 			return nil, err
 		}
 
-		apiErr.StatusCode = httpRes.StatusCode
-		return nil, &apiErr
+		return nil, &errData.Error
 	}
 	return &apiRes, nil
 }

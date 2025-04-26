@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 
@@ -87,6 +88,10 @@ func ValidationWithFieldErrors(data FieldErrorsMap) *ResponseError {
 }
 
 func BindingError(err error) *ResponseError {
+	if errors.Is(err, io.EOF) {
+		return ParseError("request body is empty")
+	}
+
 	var syntaxErr *json.SyntaxError
 	var validationErrs validator.ValidationErrors
 
