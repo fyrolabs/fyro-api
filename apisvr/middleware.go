@@ -33,6 +33,6 @@ func ErrorHandler() gin.HandlerFunc {
 			}
 		}
 
-		c.JSON(lastErr.Status, gin.H{"error": lastErr})
+		c.JSON(lastErr.Status, lastErr)
 	}
 }
